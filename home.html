@@ -1,0 +1,214 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>OMDB</title>
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+	<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/omdb.css">
+	<script src="scripts/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"	crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script src="scripts/omdb.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a id="nav-home" class="nav-link" href="#">Home
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a id="nav-favoritos" class="nav-link" href="#">Favorites</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+					 aria-expanded="true">
+						Sort by
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<button id="ordenarPorNombre" class="dropdown-item btn-sm">Name</button>
+						<button id="ordenarPorAnio" class="dropdown-item btn-sm">Year</button>
+					</div>
+
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input id="buscar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button id="boton-buscar" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+			</form>
+		</div>
+	</nav>
+
+	<div id="movies" class="container"></div>
+	<div id="favoritos" class="container"></div>
+
+	<nav id="paginator">
+		<ul class="pagination justify-content-md-center">
+			<li class="page-item">
+				<a id="link-paginator" class="page-link">More...</a>
+			</li>
+		</ul>
+		<div class="dropdown-divider"></div>
+	</nav>
+
+	<template id="movie-card">
+		<div class="movie-card">
+			<div class="movie-header"><!--agregado-->
+				
+				<div class="header-icon-container">
+					<a data-toggle="modal" data-target="#myModal">
+						<!-- <img src="" class="img-responsive"> -->
+						<i class="material-icons header-icon"></i>
+						
+					</a>
+				</div>
+			</div>
+			<!--movie-header-->
+			<div class="movie-content">
+				<div class="movie-content-header">
+
+					<h3 class="movie-title"></h3>
+
+				</div>
+				<div class="movie-info">
+					<div class="info-section">
+						<label>Release date</label>
+						<span id="movie-release-date"></span>
+					</div>
+					<!--row-->
+					<div class="info-section">
+						<label>Type</label>
+						<span id="movie-type" class="text-capitalize"></span>
+					</div>
+					<!--seat-->
+				</div>
+			</div>
+			<!--movie-content-->
+		</div>
+		<!--movie-card-->
+	</template>
+
+	<div class="modal fade movie_view" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">
+						<span id="modal-title"></span>
+						<span id="modal-year"></span>
+					</h3>
+					<a href="#" data-dismiss="modal" class="class pull-right">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6 product_img">
+							<img id="modal-poster" src="" class="img-responsive">
+						</div>
+						<div class="col-md-6 product_content">
+
+							<div class="movie-info">
+								<div class="info-section">
+									<label>Rating</label>
+									<i class="fa fa-star"></i>
+									<span id="modal-rating"></span>
+								</div>
+								<div class="info-section">
+									<label>Votes</label>
+									<span id="modal-votes"></span>
+								</div>
+								<div class="info-section">
+									<label>Metascore</label>
+									<span id="modal-metascore"></span>
+								</div>
+							</div>
+							<div class="movie-info">
+								<div class="info-section">
+									<label>Plot</label>
+									<span id="modal-plot" class="lead"></span>
+								</div>
+								<div class="info-section">
+									<label></label>
+									<span></span>
+								</div>
+							</div>
+							<div class="movie-info">
+								<div class="info-section">
+									<label>Released</label>
+									<span id="modal-released"></span>
+								</div>
+								<div class="info-section">
+									<label>Runtime</label>
+									<span id="modal-runtime"></span>
+								</div>
+
+								<div class="info-section">
+									<label>Rated</label>
+									<span id="modal-rated"></span>
+								</div>
+							</div>
+							<div class="movie-info">
+								<div class="info-section">
+									<label>Director</label>
+									<span id="modal-director" class="text-capitalize"></span>
+								</div>
+								<div class="info-section">
+									<label></label>
+									<span></span>
+								</div>
+							</div>
+							<div class="movie-info">
+								<div class="info-section">
+									<label>Actors</label>
+									<span id="modal-actors" class="text-capitalize"></span>
+								</div>
+								<div class="info-section">
+									<label></label>
+									<span></span>
+								</div>
+							</div>
+							<div class="movie-info">
+								<div class="info-section">
+									<label>Writers</label>
+									<span id="modal-writer" class="text-capitalize"></span>
+								</div>
+								<div class="info-section">
+									<label></label>
+									<span></span>
+								</div>
+							</div>
+							<div class="movie-info">
+								<div class="info-section">
+									<label>Awards</label>
+									<span id="modal-awards" class="text-capitalize"></span>
+								</div>
+								<div class="info-section">
+									<label></label>
+									<span></span>
+								</div>
+							</div>
+							<div class="space-ten"></div>
+							<div class="btn-ground">
+								<button id="modal-add-to-favorite" type="button" class="btn btn-primary">
+									<i class="fa fa-heart"></i> Add to favorites</button>
+							</div>
+							<div class="btn-ground">
+								<button id="modal-remove-from-favorite" type="button" class="btn btn-danger">
+									<i class="fa fa-trash"></i> Remove from favorites</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
